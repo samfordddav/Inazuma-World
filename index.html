@@ -15,7 +15,6 @@
         h1 { color: #4cc9f0; font-size: 2.5rem; margin-bottom: 10px; }
         .subtitulo { color: #aaaaaa; margin-bottom: 40px; }
         
-        /* Contenedor del Menú de Inicio */
         #pantalla-menu {
             display: flex;
             flex-direction: column;
@@ -46,7 +45,6 @@
             background-color: #111a33;
         }
 
-        /* Ocultar zonas por defecto */
         #pantalla-juego, #pantalla-creador-equipo { 
             display: none !important; 
         }
@@ -57,7 +55,6 @@
             text-decoration: underline;
         }
 
-        /* Estilos del juego de adivinar */
         .buscador-contenedor { margin: 20px auto; max-width: 400px; position: relative; }
         input, select {
             width: 100%; padding: 12px; font-size: 16px;
@@ -81,7 +78,6 @@
         .verde { background-color: #2a9d8f; color: white; }
         .rojo { background-color: #e63946; color: white; }
 
-        /* ESTILOS DEL CREADOR DE EQUIPOS (NUEVO) */
         .config-equipo { max-width: 500px; margin: 0 auto 20px auto; text-align: left; }
         .config-equipo label { font-weight: bold; color: #4cc9f0; display: block; margin-top: 10px; }
         
@@ -108,13 +104,29 @@
         .area-posicion h3 { margin: 0 0 8px 0; font-size: 14px; color: #4cc9f0; text-transform: uppercase; }
         .grid-jugadores { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
         .grid-jugadores select { max-width: 130px; font-size: 12px; padding: 5px; }
+
+        .btn-exportar {
+            background-color: #4cc9f0;
+            color: #0b132b;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+        .btn-exportar:hover {
+            background-color: #4361ee;
+            color: white;
+        }
     </style>
 </head>
 <body>
 
     <h1>Inazuma World</h1>
 
-    <!-- PANTALLA DE INICIO (MENU) -->
     <div id="pantalla-menu">
         <p class="subtitulo">Selecciona un modo de juego</p>
         <button class="btn-modo" onclick="mostrarModo('adivinar-jugador')">⚽ Adivinar Jugador</button>
@@ -122,7 +134,6 @@
         <button class="btn-modo btn-desactivado" disabled>🔒 Próximamente...</button>
     </div>
 
-    <!-- MODO 1: ADIVINAR JUGADOR -->
     <div id="pantalla-juego">
         <button class="btn-volver" onclick="mostrarMenu()">⬅️ Volver al menú</button>
         <p>Introduce un jugador para adivinar el personaje secreto.</p>
@@ -145,14 +156,13 @@
         </table>
     </div>
 
-    <!-- MODO 2: CREADOR DE EQUIPO (NUEVO) -->
     <div id="pantalla-creador-equipo">
         <button class="btn-volver" onclick="mostrarMenu()">⬅️ Volver al menú</button>
         <h2>Configura tu Equipo Ideal</h2>
         
         <div class="config-equipo">
             <label>Nombre de tu equipo:</label>
-            <input type="text" placeholder="Ej. Eléctricos del Raimon...">
+            <input type="text" id="input-nombre-equipo" placeholder="Ej. Eléctricos del Raimon...">
             
             <label>Selecciona Entrenador:</label>
             <select id="select-entrenador">
@@ -164,82 +174,48 @@
             </select>
         </div>
 
-        <!-- CAMPO TÁCTICO -->
         <div class="campo-futbol">
             <div class="linea-medio"></div>
             
-            <!-- DELANTEROS -->
             <div class="area-posicion">
                 <h3>Delanteros (DL)</h3>
                 <div class="grid-jugadores">
-                    <select class="selector-campo"><option>Seleccionar...</option></select>
-                    <select class="selector-campo"><option>Seleccionar...</option></select>
+                    <select class="selector-campo DL"><option value="">Seleccionar...</option></select>
+                    <select class="selector-campo DL"><option value="">Seleccionar...</option></select>
                 </div>
             </div>
 
-            <!-- MEDIOCAMPISTAS -->
             <div class="area-posicion">
                 <h3>Mediocampistas (MD)</h3>
                 <div class="grid-jugadores">
-                    <select class="selector-campo"><option>Seleccionar...</option></select>
-                    <select class="selector-campo"><option>Seleccionar...</option></select>
-                    <select class="selector-campo"><option>Seleccionar...</option></select>
+                    <select class="selector-campo MD"><option value="">Seleccionar...</option></select>
+                    <select class="selector-campo MD"><option value="">Seleccionar...</option></select>
+                    <select class="selector-campo MD"><option value="">Seleccionar...</option></select>
                 </div>
             </div>
 
-            <!-- DEFENSAS -->
             <div class="area-posicion">
                 <h3>Defensas (DF)</h3>
                 <div class="grid-jugadores">
-                    <select class="selector-campo"><option>Seleccionar...</option></select>
-                    <select class="selector-campo"><option>Seleccionar...</option></select>
-                    <select class="selector-campo"><option>Seleccionar...</option></select>
-                    <select class="selector-campo"><option>Seleccionar...</option></select>
+                    <select class="selector-campo DF"><option value="">Seleccionar...</option></select>
+                    <select class="selector-campo DF"><option value="">Seleccionar...</option></select>
+                    <select class="selector-campo DF"><option value="">Seleccionar...</option></select>
+                    <select class="selector-campo DF"><option value="">Seleccionar...</option></select>
                 </div>
             </div>
 
-            <!-- PORTERO -->
             <div class="area-posicion">
                 <h3>Portero (PR)</h3>
                 <div class="grid-jugadores">
-                    <select class="selector-campo"><option>Seleccionar...</option></select>
+                    <select class="selector-campo PR"><option value="">Seleccionar...</option></select>
                 </div>
             </div>
         </div>
+
+        <button class="btn-exportar" onclick="exportarAlineacion()">📥 Exportar Alineación</button>
     </div>
 
     <script src="script.js"></script>
-    <script>
-        // Lógica de pantallas fijada
-        function mostrarModo(modo) {
-            document.getElementById('pantalla-menu').style.setProperty('display', 'none', 'important');
-            if(modo === 'adivinar-jugador') {
-                document.getElementById('pantalla-juego').style.setProperty('display', 'block', 'important');
-            } else if(modo === 'crear-equipo') {
-                document.getElementById('pantalla-creador-equipo').style.setProperty('display', 'block', 'important');
-                cargarJugadoresEnSelectores(); // Llena el campo con tus personajes actuales
-            }
-        }
-        function mostrarMenu() {
-            document.getElementById('pantalla-juego').style.setProperty('display', 'none', 'important');
-            document.getElementById('pantalla-creador-equipo').style.setProperty('display', 'none', 'important');
-            document.getElementById('pantalla-menu').style.setProperty('display', 'flex', 'important');
-        }
-
-        // Llena automáticamente los menús desplegables del campo con la lista de tu script.js
-        function cargarJugadoresEnSelectores() {
-            const selectores = document.querySelectorAll(".selector-campo");
-            selectores.forEach(select => {
-                if (select.children.length <= 1) { // Evita duplicar si ya se cargaron
-                    jugadores.forEach(j => {
-                        const opt = document.createElement("option");
-                        opt.value = j.nombre;
-                        opt.innerText = `${j.nombre} (${j.posicion})`;
-                        select.appendChild(opt);
-                    });
-                }
-            });
-        }
-    </script>
+    <script src="interfaz.js"></script>
 </body>
 </html>
