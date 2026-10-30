@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inazuma World - Adivina el Jugador</title>
+    <style>
+        body {
+            background-color: #0b132b;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 { color: #4cc9f0; }
+        .buscador-contenedor { margin: 20px auto; max-width: 400px; position: relative; }
+        input {
+            width: 100%; padding: 12px; font-size: 16px;
+            border: 2px solid #4cc9f0; background: #1c2541;
+            color: white; border-radius: 5px; box-sizing: border-box;
+        }
+        .sugerencias {
+            position: absolute; width: 100%; background: #1c2541;
+            border: 1px solid #4cc9f0; border-top: none;
+            max-height: 150px; overflow-y: auto; z-index: 10;
+            text-align: left; border-radius: 0 0 5px 5px;
+        }
+        .sugerencia-item { padding: 10px; cursor: pointer; }
+        .sugerencia-item:hover { background: #3a506b; }
+        .tabla-intentos { margin: 30px auto; border-collapse: collapse; width: 100%; max-width: 600px; }
+        .tabla-intentos th, .tabla-intentos td {
+            border: 2px solid #0b132b; padding: 12px; text-align: center; font-weight: bold;
+        }
+        .tabla-intentos th { background-color: #1c2541; }
+        .verde { background-color: #2a9d8f; color: white; }
+        .rojo { background-color: #e63946; color: white; }
+    </style>
+</head>
+<body>
+
+    <h1>Inazuma World</h1>
+    <p>Introduce un jugador para adivinar el personaje secreto del día.</p>
+
+    <div class="buscador-contenedor">
+        <input type="text" id="buscador" placeholder="Escribe el nombre de un jugador..." autocomplete="off">
+        <div id="sugerencias" class="sugerencias"></div>
+    </div>
+
+    <table class="tabla-intentos">
+        <thead>
+            <tr>
+                <th>Jugador</th>
+                <th>Equipo</th>
+                <th>Posición</th>
+                <th>Elemento</th>
+            </tr>
+        </thead>
+        <tbody id="lista-intentos">
+            <!-- Aquí se irán añadiendo los intentos del usuario -->
+        </tbody>
+    </table>
+
+    <script src="script.js"></script>
+</body>
+</html>
