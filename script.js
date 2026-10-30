@@ -1,4 +1,3 @@
-// Base de datos de jugadores (puedes añadir los que quieras siguiendo el mismo formato)
 const jugadores = [
     { nombre: "Mark Evans", equipo: "Raimon", posicion: "Portero", elemento: "Tierra" },
     { nombre: "Axel Blaze", equipo: "Raimon", posicion: "Delantero", elemento: "Fuego" },
@@ -10,39 +9,37 @@ const jugadores = [
     { nombre: "Xene", equipo: "Génesis", posicion: "Delantero", elemento: "Fuego" }
 ];
 
-// Jugador secreto del día (en este ejemplo elegimos a Axel Blaze como el correcto)
 const jugadorSecreto = jugadores[1]; 
 
 const buscador = document.getElementById("buscador");
 const sugerenciasDiv = document.getElementById("sugerencias");
 const listaIntentos = document.getElementById("lista-intentos");
 
-// Mostrar sugerencias mientras el usuario escribe
-buscador.addEventListener("input", () => {
-    const texto = buscador.value.toLowerCase();
-    sugerenciasDiv.innerHTML = "";
-    if (!texto) return;
+if (buscador) {
+    buscador.addEventListener("input", () => {
+        const texto = buscador.value.toLowerCase();
+        sugerenciasDiv.innerHTML = "";
+        if (!texto) return;
 
-    const filtrados = jugadores.filter(j => j.nombre.toLowerCase().includes(texto));
-    
-    filtrados.forEach(j => {
-        const div = document.createElement("div");
-        div.className = "sugerencia-item";
-        div.innerText = j.nombre;
-        div.addEventListener("click", () => {
-            comprobarJugador(j);
-            buscador.value = "";
-            sugerenciasDiv.innerHTML = "";
+        const filtrados = jugadores.filter(j => j.nombre.toLowerCase().includes(texto));
+        
+        filtrados.forEach(j => {
+            const div = document.createElement("div");
+            div.className = "sugerencia-item";
+            div.innerText = j.nombre;
+            div.addEventListener("click", () => {
+                comprobarJugador(j);
+                buscador.value = "";
+                sugerenciasDiv.innerHTML = "";
+            });
+            sugerenciasDiv.appendChild(div);
         });
-        sugerenciasDiv.appendChild(div);
     });
-});
+}
 
-// Comprobar los atributos del jugador seleccionado frente al secreto
 function comprobarJugador(jugador) {
     const fila = document.createElement("tr");
 
-    // Función auxiliar para comparar y asignar clase de color
     function crearCelda(valorIntento, valorSecreto) {
         const td = document.createElement("td");
         td.innerText = valorIntento;
