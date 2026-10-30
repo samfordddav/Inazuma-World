@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inazuma World - Adivina el Jugador</title>
+    <title>Inazuma World - Menú Principal</title>
     <style>
         body {
             background-color: #0b132b;
@@ -12,7 +12,49 @@
             text-align: center;
             padding: 20px;
         }
-        h1 { color: #4cc9f0; }
+        h1 { color: #4cc9f0; font-size: 2.5rem; margin-bottom: 10px; }
+        .subtitulo { color: #aaaaaa; margin-bottom: 40px; }
+        
+        /* Contenedor del Menú de Inicio */
+        .menu-inicio {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        .btn-modo {
+            background-color: #1c2541;
+            color: white;
+            border: 2px solid #4cc9f0;
+            padding: 15px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-modo:hover {
+            background-color: #4cc9f0;
+            color: #0b132b;
+            transform: scale(1.05);
+        }
+        .btn-desactivado {
+            border-color: #3a506b;
+            color: #666666;
+            cursor: not-allowed;
+            background-color: #111a33;
+        }
+
+        /* El juego empieza oculto */
+        .zona-juego { display: none; }
+        .btn-volver {
+            background: none; border: none; color: #4cc9f0; 
+            cursor: pointer; font-size: 16px; margin-bottom: 20px;
+            text-decoration: underline;
+        }
+
+        /* Estilos del buscador y tabla */
         .buscador-contenedor { margin: 20px auto; max-width: 400px; position: relative; }
         input {
             width: 100%; padding: 12px; font-size: 16px;
@@ -39,27 +81,53 @@
 <body>
 
     <h1>Inazuma World</h1>
-    <p>Introduce un jugador para adivinar el personaje secreto del día.</p>
 
-    <div class="buscador-contenedor">
-        <input type="text" id="buscador" placeholder="Escribe el nombre de un jugador..." autocomplete="off">
-        <div id="sugerencias" class="sugerencias"></div>
+    <!-- PANTALLA DE INICIO (MENU) -->
+    <div id="pantalla-menu" class="menu-inicio">
+        <p class="subtitulo">Selecciona un modo de juego</p>
+        <button class="btn-modo" onclick="mostrarModo('adivinar-jugador')">⚽ Adivinar Jugador</button>
+        <button class="btn-modo btn-desactivado" disabled>🔒 Próximamente...</button>
+        <button class="btn-modo btn-desactivado" disabled>🔒 Próximamente...</button>
     </div>
 
-    <table class="tabla-intentos">
-        <thead>
-            <tr>
-                <th>Jugador</th>
-                <th>Equipo</th>
-                <th>Posición</th>
-                <th>Elemento</th>
-            </tr>
-        </thead>
-        <tbody id="lista-intentos">
-            <!-- Aquí se irán añadiendo los intentos del usuario -->
-        </tbody>
-    </table>
+    <!-- ZONA DEL JUEGO (OCULTA AL PRINCIPIO) -->
+    <div id="pantalla-juego" class="zona-juego">
+        <button class="btn-volver" onclick="mostrarMenu()">⬅️ Volver al menú</button>
+        <p>Introduce un jugador para adivinar el personaje secreto.</p>
+
+        <div class="buscador-contenedor">
+            <input type="text" id="buscador" placeholder="Escribe el nombre de un jugador..." autocomplete="off">
+            <div id="sugerencias" class="sugerencias"></div>
+        </div>
+
+        <table class="tabla-intentos">
+            <thead>
+                <tr>
+                    <th>Jugador</th>
+                    <th>Equipo</th>
+                    <th>Posición</th>
+                    <th>Elemento</th>
+                </tr>
+            </thead>
+            <tbody id="lista-intentos">
+                <!-- Los intentos aparecerán aquí -->
+            </tbody>
+        </table>
+    </div>
 
     <script src="script.js"></script>
+    <script>
+        // Funciones para cambiar de pantalla de manera inmediata
+        function mostrarModo(modo) {
+            if(modo === 'adivinar-jugador') {
+                document.getElementById('pantalla-menu').style.display = 'none';
+                document.getElementById('pantalla-juego').style.display = 'block';
+            }
+        }
+        function mostrarMenu() {
+            document.getElementById('pantalla-juego').style.display = 'none';
+            document.getElementById('pantalla-menu').style.display = 'flex';
+        }
+    </script>
 </body>
 </html>
