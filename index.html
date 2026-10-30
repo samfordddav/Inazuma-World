@@ -16,7 +16,7 @@
         .subtitulo { color: #aaaaaa; margin-bottom: 40px; }
         
         /* Contenedor del Menú de Inicio */
-        .menu-inicio {
+        #pantalla-menu {
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -46,20 +46,24 @@
             background-color: #111a33;
         }
 
-        /* El juego empieza oculto */
-        .zona-juego { display: none; }
+        /* Ocultar zonas por defecto */
+        #pantalla-juego, #pantalla-creador-equipo { 
+            display: none !important; 
+        }
+        
         .btn-volver {
             background: none; border: none; color: #4cc9f0; 
             cursor: pointer; font-size: 16px; margin-bottom: 20px;
             text-decoration: underline;
         }
 
-        /* Estilos del buscador y tabla */
+        /* Estilos del juego de adivinar */
         .buscador-contenedor { margin: 20px auto; max-width: 400px; position: relative; }
-        input {
+        input, select {
             width: 100%; padding: 12px; font-size: 16px;
             border: 2px solid #4cc9f0; background: #1c2541;
             color: white; border-radius: 5px; box-sizing: border-box;
+            margin-bottom: 10px;
         }
         .sugerencias {
             position: absolute; width: 100%; background: #1c2541;
@@ -76,6 +80,34 @@
         .tabla-intentos th { background-color: #1c2541; }
         .verde { background-color: #2a9d8f; color: white; }
         .rojo { background-color: #e63946; color: white; }
+
+        /* ESTILOS DEL CREADOR DE EQUIPOS (NUEVO) */
+        .config-equipo { max-width: 500px; margin: 0 auto 20px auto; text-align: left; }
+        .config-equipo label { font-weight: bold; color: #4cc9f0; display: block; margin-top: 10px; }
+        
+        .campo-futbol {
+            background-color: #2a9d8f;
+            border: 4px solid white;
+            max-width: 450px;
+            margin: 20px auto;
+            border-radius: 10px;
+            padding: 20px;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        .linea-medio {
+            position: absolute; top: 50%; left: 0; width: 100%; height: 2px; background: white;
+        }
+        .area-posicion {
+            margin: 15px 0;
+            background: rgba(28, 37, 65, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px dashed white;
+        }
+        .area-posicion h3 { margin: 0 0 8px 0; font-size: 14px; color: #4cc9f0; text-transform: uppercase; }
+        .grid-jugadores { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+        .grid-jugadores select { max-width: 130px; font-size: 12px; padding: 5px; }
     </style>
 </head>
 <body>
@@ -83,15 +115,15 @@
     <h1>Inazuma World</h1>
 
     <!-- PANTALLA DE INICIO (MENU) -->
-    <div id="pantalla-menu" class="menu-inicio">
+    <div id="pantalla-menu">
         <p class="subtitulo">Selecciona un modo de juego</p>
         <button class="btn-modo" onclick="mostrarModo('adivinar-jugador')">⚽ Adivinar Jugador</button>
-        <button class="btn-modo btn-desactivado" disabled>🔒 Próximamente...</button>
+        <button class="btn-modo" onclick="mostrarModo('crear-equipo')">📋 Creador de Equipos</button>
         <button class="btn-modo btn-desactivado" disabled>🔒 Próximamente...</button>
     </div>
 
-    <!-- ZONA DEL JUEGO (OCULTA AL PRINCIPIO) -->
-    <div id="pantalla-juego" class="zona-juego">
+    <!-- MODO 1: ADIVINAR JUGADOR -->
+    <div id="pantalla-juego">
         <button class="btn-volver" onclick="mostrarMenu()">⬅️ Volver al menú</button>
         <p>Introduce un jugador para adivinar el personaje secreto.</p>
 
@@ -109,24 +141,104 @@
                     <th>Elemento</th>
                 </tr>
             </thead>
-            <tbody id="lista-intentos">
-                <!-- Los intentos aparecerán aquí -->
-            </tbody>
+            <tbody id="lista-intentos"></tbody>
         </table>
+    </div>
+
+    <!-- MODO 2: CREADOR DE EQUIPO (NUEVO) -->
+    <div id="pantalla-creador-equipo">
+        <button class="btn-volver" onclick="mostrarMenu()">⬅️ Volver al menú</button>
+        <h2>Configura tu Equipo Ideal</h2>
+        
+        <div class="config-equipo">
+            <label>Nombre de tu equipo:</label>
+            <input type="text" placeholder="Ej. Eléctricos del Raimon...">
+            
+            <label>Selecciona Entrenador:</label>
+            <select id="select-entrenador">
+                <option>Seymour Hillman</option>
+                <option>Aquilina "Lina" Schiller</option>
+                <option>Percival Travis</option>
+                <option>Mark Evans (Adulto)</option>
+                <option>Jude Sharp (Adulto)</option>
+            </select>
+        </div>
+
+        <!-- CAMPO TÁCTICO -->
+        <div class="campo-futbol">
+            <div class="linea-medio"></div>
+            
+            <!-- DELANTEROS -->
+            <div class="area-posicion">
+                <h3>Delanteros (DL)</h3>
+                <div class="grid-jugadores">
+                    <select class="selector-campo"><option>Seleccionar...</option></select>
+                    <select class="selector-campo"><option>Seleccionar...</option></select>
+                </div>
+            </div>
+
+            <!-- MEDIOCAMPISTAS -->
+            <div class="area-posicion">
+                <h3>Mediocampistas (MD)</h3>
+                <div class="grid-jugadores">
+                    <select class="selector-campo"><option>Seleccionar...</option></select>
+                    <select class="selector-campo"><option>Seleccionar...</option></select>
+                    <select class="selector-campo"><option>Seleccionar...</option></select>
+                </div>
+            </div>
+
+            <!-- DEFENSAS -->
+            <div class="area-posicion">
+                <h3>Defensas (DF)</h3>
+                <div class="grid-jugadores">
+                    <select class="selector-campo"><option>Seleccionar...</option></select>
+                    <select class="selector-campo"><option>Seleccionar...</option></select>
+                    <select class="selector-campo"><option>Seleccionar...</option></select>
+                    <select class="selector-campo"><option>Seleccionar...</option></select>
+                </div>
+            </div>
+
+            <!-- PORTERO -->
+            <div class="area-posicion">
+                <h3>Portero (PR)</h3>
+                <div class="grid-jugadores">
+                    <select class="selector-campo"><option>Seleccionar...</option></select>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
     <script>
-        // Funciones para cambiar de pantalla de manera inmediata
+        // Lógica de pantallas fijada
         function mostrarModo(modo) {
+            document.getElementById('pantalla-menu').style.setProperty('display', 'none', 'important');
             if(modo === 'adivinar-jugador') {
-                document.getElementById('pantalla-menu').style.display = 'none';
-                document.getElementById('pantalla-juego').style.display = 'block';
+                document.getElementById('pantalla-juego').style.setProperty('display', 'block', 'important');
+            } else if(modo === 'crear-equipo') {
+                document.getElementById('pantalla-creador-equipo').style.setProperty('display', 'block', 'important');
+                cargarJugadoresEnSelectores(); // Llena el campo con tus personajes actuales
             }
         }
         function mostrarMenu() {
-            document.getElementById('pantalla-juego').style.display = 'none';
-            document.getElementById('pantalla-menu').style.display = 'flex';
+            document.getElementById('pantalla-juego').style.setProperty('display', 'none', 'important');
+            document.getElementById('pantalla-creador-equipo').style.setProperty('display', 'none', 'important');
+            document.getElementById('pantalla-menu').style.setProperty('display', 'flex', 'important');
+        }
+
+        // Llena automáticamente los menús desplegables del campo con la lista de tu script.js
+        function cargarJugadoresEnSelectores() {
+            const selectores = document.querySelectorAll(".selector-campo");
+            selectores.forEach(select => {
+                if (select.children.length <= 1) { // Evita duplicar si ya se cargaron
+                    jugadores.forEach(j => {
+                        const opt = document.createElement("option");
+                        opt.value = j.nombre;
+                        opt.innerText = `${j.nombre} (${j.posicion})`;
+                        select.appendChild(opt);
+                    });
+                }
+            });
         }
     </script>
 </body>
