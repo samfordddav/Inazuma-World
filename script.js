@@ -9,6 +9,7 @@ const jugadores = [
     { nombre: "Xene", equipo: "Génesis", posicion: "Delantero", elemento: "Fuego" }
 ];
 
+// Jugador secreto (Axel Blaze)
 const jugadorSecreto = jugadores[1]; 
 
 const buscador = document.getElementById("buscador");
@@ -57,4 +58,11 @@ function comprobarJugador(jugador) {
     fila.appendChild(crearCelda(jugador.elemento, jugadorSecreto.elemento));
 
     listaIntentos.insertBefore(fila, listaIntentos.firstChild);
+
+    // MENSAJE DE VICTORIA PARA EL JUGADOR
+    if (jugador.nombre === jugadorSecreto.nombre) {
+        setTimeout(() => {
+            alert("⚽ ¡BRUTAL! ¡Has adivinado el personaje secreto! 🔥🏆");
+        }, 200);
+    }
 }
