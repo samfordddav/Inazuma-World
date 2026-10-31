@@ -34,7 +34,7 @@ const jugadores = [
 ];
 
 // El jugador misterioso a adivinar hoy es Axel Blaze
-const jugadorSecreto = jugadores; 
+const jugadorSecreto = jugadores[1]; 
 
 const buscador = document.getElementById("buscador");
 const sugerenciasDiv = document.getElementById("sugerencias");
