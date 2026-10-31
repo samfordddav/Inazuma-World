@@ -6,7 +6,14 @@ const jugadores = [
     { nombre: "Jack Wallside", equipo: "Raimon", posicion: "Defensa", elemento: "Tierra", foto: "jack.webp" },
     { nombre: "Shawn Froste", equipo: "Alpino", posicion: "Delantero", elemento: "Viento", foto: "shawn.webp" },
     { nombre: "Byron Love", equipo: "Zeus", posicion: "Delantero", elemento: "Bosque", foto: "byron.webp" },
-    { nombre: "Xene", equipo: "Génesis", posicion: "Delantero", elemento: "Fuego", foto: "xene.webp" }
+    { nombre: "Xene", equipo: "Génesis", posicion: "Delantero", elemento: "Fuego", foto: "xene.webp" },
+    { nombre: "David Samford", equipo: "Royal Academy", posicion: "Delantero", elemento: "Bosque", foto: "david.webp" },
+    { nombre: "Joseph King", equipo: "Royal Academy", posicion: "Portero", elemento: "Fuego", foto: "joseph.webp" },
+    { nombre: "Caleb Stonewall", equipo: "Royal Academy", posicion: "Centrocampista", elemento: "Fuego", foto: "caleb.webp" },
+    { nombre: "Darren LaChance", equipo: "Raimon", posicion: "Portero", elemento: "Bosque", foto: "darren.webp" },
+    { nombre: "Hurley Kane", equipo: "Raimon", posicion: "Defensa", elemento: "Viento", foto: "hurley.webp" },
+    { nombre: "Xavier Foster", equipo: "Inazuma Japón", posicion: "Delantero", elemento: "Fuego", foto: "xavier.webp" },
+    { nombre: "Jordan Greenway", equipo: "Inazuma Japón", posicion: "Centrocampista", elemento: "Tierra", foto: "jordan.webp" }
 ];
 
 // Jugador secreto (Axel Blaze)
