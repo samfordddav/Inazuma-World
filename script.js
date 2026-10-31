@@ -33,8 +33,61 @@ const jugadores = [
     { nombre: "Edgar Partinus", equipo: "Los Emperadores", posicion: "Delantero", elemento: "Bosque", foto: "edgar.webp" }
 ];
 
-// El jugador misterioso a adivinar hoy es Axel Blaze
-const jugadorSecreto = jugadores[1]; 
+let listaDesordenadaPorDia = [];
+let jugadorSecreto = null;
+let diaSeleccionado = null;
+
+function generarRetosAleatorios() {
+    let copiaJugadores = [...jugadores];
+    listaDesordenadaPorDia = [];
+    let semilla = 12345; 
+    
+    for (let i = 0; i < jugadores.length; i++) {
+        semilla = (semilla * 9301 + 49297) % 233280;
+        let porcentaje = semilla / 233280;
+        let indiceAleatorio = Math.floor(porcentaje * copiaJugadores.length);
+        listaDesordenadaPorDia.push(copiaJugadores[indiceAleatorio]);
+        copiaJugadores.splice(indiceAleatorio, 1);
+    }
+}
+function inicializarCalendarioDias() {
+    const grid = document.getElementById("grid-dias-calendario");
+    if (!grid) return;
+    grid.innerHTML = "";
+
+    if (listaDesordenadaPorDia.length === 0) {
+        generarRetosAleatorios();
+    }
+
+    for (let i = 1; i <= 30; i++) {
+        const btn = document.createElement("button");
+        btn.className = "btn-dia";
+        btn.innerText = `Día ${i}`;
+        btn.id = `btn-dia-${i}`;
+        btn.addEventListener("click", () => {
+            seleccionarDiaJuego(i);
+        });
+        grid.appendChild(btn);
+    }
+}
+
+function seleccionarDiaJuego(dia) {
+    diaSeleccionado = dia;
+    jugadorSecreto = listaDesordenadaPorDia[dia - 1];
+    
+    document.getElementById("lista-intentos").innerHTML = "";
+    document.getElementById("alerta-victoria").style.display = "none";
+    document.getElementById("contenedor-buscador-juego").style.display = "block";
+    document.getElementById("instrucciones-juego").innerText = `🎯 Reto del Día ${dia} activado. ¡Intenta adivinarlo!`;
+
+    document.querySelectorAll(".btn-dia").forEach(b => b.classList.remove("activo"));
+    const btnActivo = document.getElementById(`btn-dia-${dia}`);
+    if (btnActivo) btnActivo.classList.add("activo");
+}
+
+window.onload = function() {
+    inicializarCalendarioDias();
+};
 
 const buscador = document.getElementById("buscador");
 const sugerenciasDiv = document.getElementById("sugerencias");
@@ -64,8 +117,12 @@ if (buscador) {
 }
 
 function comprobarJugador(jugador) {
-    const fila = document.createElement("tr");
+    if (!jugadorSecreto) {
+        alert("Por favor, selecciona un día primero.");
+        return;
+    }
 
+    const fila = document.createElement("tr");
     const tdJugador = document.createElement("td");
     const imgHtml = jugador.foto ? `<div style="width:55px; height:55px; border-radius:8px; overflow:hidden; margin:0 auto 4px auto;"><img src="${jugador.foto}" style="width:100%; height:100%; object-fit:cover; object-position:center;"></div>` : '';
     tdJugador.innerHTML = `${imgHtml}${jugador.nombre}`;
@@ -75,11 +132,7 @@ function comprobarJugador(jugador) {
     function crearCelda(valorIntento, valorSecreto) {
         const td = document.createElement("td");
         td.innerText = valorIntento;
-        if (valorIntento === valorSecreto) {
-            td.className = "verde";
-        } else {
-            td.className = "rojo";
-        }
+        td.className = (valorIntento === valorSecreto) ? "verde" : "rojo";
         return td;
     }
 
@@ -90,34 +143,28 @@ function comprobarJugador(jugador) {
     listaIntentos.insertBefore(fila, listaIntentos.firstChild);
 
     if (jugador.nombre === jugadorSecreto.nombre) {
-        const cuadroVictoria = document.getElementById("alerta-victoria");
-        if (cuadroVictoria) {
-            cuadroVictoria.style.display = "block";
-        }
+        document.getElementById("alerta-victoria").style.display = "block";
+        const btnGanado = document.getElementById(`btn-dia-${diaSeleccionado}`);
+        if (btnGanado) btnGanado.classList.add("completado");
     }
 }
 
-// LÓGICA DE SELECCIÓN DE DIFICULTAD
 function cambiarDificultad(nivel) {
     document.getElementById("btn-facil").classList.remove("activo");
     document.getElementById("btn-medio").classList.remove("activo");
     document.getElementById("btn-imposible").classList.remove("activo");
-
     document.getElementById("aviso-modo-bloqueado").style.display = "none";
 
     if (nivel === 'facil') {
         document.getElementById("btn-facil").classList.add("activo");
-        document.getElementById("contenedor-buscador-juego").style.display = "block";
-        document.getElementById("instrucciones-juego").innerText = "Introduce un jugador para adivinar el personaje secreto.";
-    } else if (nivel === 'medio') {
-        document.getElementById("btn-medio").classList.add("activo");
+        document.getElementById("panel-secciones-dias").style.display = "block";
+        document.getElementById("instrucciones-juego").innerText = "Selecciona un día del panel superior para empezar a jugar.";
+        inicializarCalendarioDias();
+    } else {
+        document.getElementById(`btn-${nivel}`).classList.add("activo");
+        document.getElementById("panel-secciones-dias").style.display = "none";
         document.getElementById("contenedor-buscador-juego").style.display = "none";
         document.getElementById("aviso-modo-bloqueado").style.display = "block";
-        document.getElementById("instrucciones-juego").innerText = "Modo Medio seleccionado.";
-    } else if (nivel === 'imposible') {
-        document.getElementById("btn-imposible").classList.add("activo");
-        document.getElementById("contenedor-buscador-juego").style.display = "none";
-        document.getElementById("aviso-modo-bloqueado").style.display = "block";
-        document.getElementById("instrucciones-juego").innerText = "Modo Imposible seleccionado.";
+        document.getElementById("instrucciones-juego").innerText = "Modo seleccionado.";
     }
 }
