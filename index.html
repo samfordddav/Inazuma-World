@@ -5,12 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inazuma World</title>
     <style>
-        body { background-color: #0b132b; color: #ffffff; font-family: Arial, sans-serif; text-align: center; padding: 20px; }
-        h1 { color: #4cc9f0; font-size: 2.5rem; margin-bottom: 10px; }
+        body { 
+            background: linear-gradient(rgba(11, 19, 43, 0.85), rgba(11, 19, 43, 0.85)), url('fondo.webp') no-repeat center center fixed; 
+            background-size: cover; 
+            color: #ffffff; 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            padding: 20px; 
+        }
+        h1 { color: #4cc9f0; font-size: 2.5rem; margin-bottom: 10px; text-shadow: 0 0 10px rgba(76, 201, 240, 0.6); }
         .subtitulo { color: #aaaaaa; margin-bottom: 40px; }
         #pantalla-menu { display: flex; flex-direction: column; gap: 20px; max-width: 300px; margin: 0 auto; }
-        .btn-modo { background-color: #1c2541; color: white; border: 2px solid #4cc9f0; padding: 15px 20px; font-size: 18px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; }
-        .btn-modo:hover { background-color: #4cc9f0; color: #0b132b; transform: scale(1.05); }
+        .btn-modo { background-color: rgba(28, 37, 65, 0.9); color: white; border: 2px solid #4cc9f0; padding: 15px 20px; font-size: 18px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .btn-modo:hover { background-color: #4cc9f0; color: #0b132b; transform: scale(1.05); box-shadow: 0 0 15px #4cc9f0; }
         #pantalla-juego, #pantalla-creador-equipo, #pantalla-tecnicas { display: none; }
         .btn-volver { background: none; border: none; color: #4cc9f0; cursor: pointer; font-size: 16px; margin-bottom: 20px; text-decoration: underline; }
         .contenedor-dificultad { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
@@ -18,7 +25,7 @@
         .btn-dif.activo { border-color: #4cc9f0; background-color: #4cc9f0; color: #0b132b; }
         .aviso-bloqueado { display: none; background-color: #e63946; color: white; padding: 12px; border-radius: 5px; max-width: 400px; margin: 15px auto; font-weight: bold; }
         
-        .contenedor-dias { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; max-width: 400px; margin: 15px auto; padding: 10px; background: #1c2541; border-radius: 8px; border: 1px solid #3a506b; }
+        .contenedor-dias { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; max-width: 400px; margin: 15px auto; padding: 10px; background: rgba(28, 37, 65, 0.95); border-radius: 8px; border: 1px solid #3a506b; }
         .btn-dia { background-color: #0b132b; color: white; border: 1px solid #4cc9f0; padding: 8px; font-size: 12px; font-weight: bold; border-radius: 4px; cursor: pointer; transition: 0.2s; }
         .btn-dia.completado { border-color: #2a9d8f; background-color: #2a9d8f; color: white; }
         .btn-dia.activo { border-color: #ffb703; background-color: #ffb703; color: #0b132b; }
@@ -31,23 +38,22 @@
         .sugerencia-item:hover { background: #3a506b; }
         
         .mensaje-victoria { display: none; background: linear-gradient(135deg, #2a9d8f, #4cc9f0); color: #0b132b; padding: 20px; border-radius: 10px; font-weight: bold; font-size: 20px; max-width: 560px; margin: 20px auto; box-shadow: 0 4px 15px rgba(76, 201, 240, 0.4); }
-        .tabla-intentos { margin: 30px auto; border-collapse: collapse; width: 100%; max-width: 600px; }
+        .tabla-intentos { margin: 30px auto; border-collapse: collapse; width: 100%; max-width: 600px; background: rgba(28, 37, 65, 0.9); }
         .tabla-intentos th, .tabla-intentos td { border: 2px solid #0b132b; padding: 12px; text-align: center; font-weight: bold; }
         .tabla-intentos th { background-color: #1c2541; }
         .verde { background-color: #2a9d8f; color: white; }
         .rojo { background-color: #e63946; color: white; }
         
-        .config-equipo { max-width: 500px; margin: 0 auto 20px auto; text-align: left; background: #1c2541; padding: 15px; border-radius: 8px; border: 1px solid #3a506b; }
+        .config-equipo { max-width: 500px; margin: 0 auto 20px auto; text-align: left; background: rgba(28, 37, 65, 0.95); padding: 15px; border-radius: 8px; border: 1px solid #3a506b; }
         .config-equipo label { font-weight: bold; color: #4cc9f0; display: block; margin-top: 10px; margin-bottom: 5px; }
         
-        /* DISEÑO DE LA CAJA DEL ENTRENADOR (NUEVO) */
         .contenedor-entrenador-vista { display: flex; align-items: center; gap: 15px; margin-top: 10px; background: #0b132b; padding: 10px; border-radius: 6px; border: 1px dashed #4cc9f0; }
         .foto-entrenador-preview { width: 60px; height: 60px; border-radius: 6px; background: #1c2541; border: 1px solid #4cc9f0; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .foto-entrenador-preview img { width: 100%; height: 100%; object-fit: cover; }
 
         .campo-futbol { background-color: #2a9d8f; border: 4px solid white; max-width: 450px; margin: 20px auto; border-radius: 10px; padding: 20px; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
         .linea-medio { position: absolute; top: 50%; left: 0; width: 100%; height: 2px; background: white; }
-        .area-posicion { margin: 15px 0; background: rgba(28, 37, 65, 0.8); padding: 10px; border-radius: 5px; border: 1px dashed white; position: relative; min-height: 80px; transition: 0.3s; }
+        .area-posicion { margin: 15px 0; background: rgba(28, 37, 65, 0.85); padding: 10px; border-radius: 5px; border: 1px dashed white; position: relative; min-height: 80px; transition: 0.3s; }
         .area-posicion h3 { margin: 0 0 8px 0; font-size: 14px; color: #4cc9f0; text-transform: uppercase; }
         .grid-buscadores { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
         
@@ -103,7 +109,6 @@
             <label>Nombre de tu equipo:</label>
             <input type="text" id="input-nombre-equipo" placeholder="Ej. Eléctricos del Raimon...">
             
-            <!-- SELECTOR DE ALINEACIONES TÁCTICAS (NUEVO) -->
             <label>Selecciona Formación Táctica:</label>
             <select id="select-alineacion" onchange="cambiarFormacionCampo()">
                 <option value="442">Formación Estándar (4-4-2)</option>
@@ -111,7 +116,6 @@
                 <option value="343">Formación Ofensiva (3-4-3)</option>
             </select>
 
-            <!-- SELECTOR Y DETALLE DEL ENTRENADOR (NUEVO) -->
             <label>Selecciona Entrenador:</label>
             <select id="select-entrenador" onchange="actualizarFotoEntrenador()">
                 <option value="hillman">Seymour Hillman</option>
@@ -124,7 +128,6 @@
             </div>
         </div>
 
-        <!-- CAMPO DE FÚTBOL INTERACTIVO DINÁMICO -->
         <div class="campo-futbol">
             <div class="linea-medio"></div>
             
