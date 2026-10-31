@@ -13,7 +13,42 @@ const jugadores = [
     { nombre: "Darren LaChance", equipo: "Raimon", posicion: "Portero", elemento: "Bosque", foto: "darren.webp" },
     { nombre: "Hurley Kane", equipo: "Raimon", posicion: "Defensa", elemento: "Viento", foto: "hurley.webp" },
     { nombre: "Xavier Foster", equipo: "Inazuma Japón", posicion: "Delantero", elemento: "Fuego", foto: "xavier.webp" },
-    { nombre: "Jordan Greenway", equipo: "Inazuma Japón", posicion: "Centrocampista", elemento: "Tierra", foto: "jordan.webp" }
+    { nombre: "Jordan Greenway", equipo: "Inazuma Japón", posicion: "Centrocampista", elemento: "Tierra", foto: "jordan.webp" },
+    { nombre: "Kevin Dragonfly", equipo: "Raimon", posicion: "Delantero", elemento: "Fuego", foto: "kevin.webp" },
+    { nombre: "Tod Ironside", equipo: "Raimon", posicion: "Defensa", elemento: "Tierra", foto: "tod.webp" },
+    { nombre: "Timmy Saunders", equipo: "Raimon", posicion: "Centrocampista", elemento: "Viento", foto: "timmy.webp" },
+    { nombre: "Sam Kincaid", equipo: "Raimon", posicion: "Centrocampista", elemento: "Fuego", foto: "sam.webp" },
+    { nombre: "Maxwell Carson", equipo: "Raimon", posicion: "Centrocampista", elemento: "Viento", foto: "max.webp" },
+    { nombre: "Steve Grim", equipo: "Raimon", posicion: "Centrocampista", elemento: "Viento", foto: "steve.webp" },
+    { nombre: "Jim Wraith", equipo: "Raimon", posicion: "Defensa", elemento: "Bosque", foto: "jim.webp" },
+    { nombre: "Bobby Shearer", equipo: "Raimon", posicion: "Defensa", elemento: "Viento", foto: "bobby.webp" },
+    { nombre: "Erik Eagle", equipo: "Raimon", posicion: "Centrocampista", elemento: "Fuego", foto: "erik.webp" },
+    { nombre: "Janus", equipo: "Tormenta de Géminis", posicion: "Centrocampista", elemento: "Tierra", foto: "janus.webp" },
+    { nombre: "Dvalin", equipo: "Épsilon", posicion: "Portero", elemento: "Fuego", foto: "dvalin.webp" },
+    { nombre: "Bellatrix", equipo: "Génesis", posicion: "Centrocampista", elemento: "Viento", foto: "bellatrix.webp" },
+    { nombre: "Torch", equipo: "Prominence", posicion: "Delantero", elemento: "Fuego", foto: "torch.webp" },
+    { nombre: "Gazelle", equipo: "Polvo de Diamantes", posicion: "Delantero", elemento: "Viento", foto: "gazelle.webp" },
+    { nombre: "Paolo Bianchi", equipo: "Orfeo", posicion: "Delantero", elemento: "Viento", foto: "paolo.webp" },
+    { nombre: "Hector Helio", equipo: "The Little Giants", posicion: "Portero", elemento: "Tierra", foto: "hector.webp" },
+    { nombre: "Edgar Partinus", equipo: "Los Emperadores", posicion: "Delantero", elemento: "Bosque", foto: "edgar.webp" },
+    { nombre: "Fideo Ardena", equipo: "Orfeo", posicion: "Centrocampista", elemento: "Tierra", foto: "fideo.webp" },
+    { nombre: "Terence Tolbert", equipo: "Star Breakers", posicion: "Defensa", elemento: "Tierra", foto: "terence.webp" },
+    { nombre: "Robingo", equipo: "Los Radicci", posicion: "Delantero", elemento: "Fuego", foto: "roniejo.webp" },
+    { nombre: "Mac Robingo", equipo: "Os Reis", posicion: "Delantero", elemento: "Fuego", foto: "mac.webp" },
+    { nombre: "Cho Chang-soo", equipo: "Dragones de Fuego", posicion: "Centrocampista", elemento: "Bosque", foto: "cho.webp" },
+    { nombre: "Hidetoshi Nakata", equipo: "Orfeo", posicion: "Centrocampista", elemento: "Fuego", foto: "hidetoshi.webp" },
+    { nombre: "Robingo Asingo", equipo: "Os Reis", posicion: "Defensa", elemento: "Tierra", foto: "robasingo.webp" },
+    { nombre: "Thomas Feldt", equipo: "Brain", posicion: "Portero", elemento: "Fuego", foto: "feldt.webp" },
+    { nombre: "Malcolm Night", equipo: "Kirkwood", posicion: "Defensa", elemento: "Bosque", foto: "night.webp" },
+    { nombre: "Daniel Hatch", equipo: "Royal Academy", posicion: "Delantero", elemento: "Fuego", foto: "hatch.webp" },
+    { nombre: "Hermes", equipo: "Zeus", posicion: "Centrocampista", elemento: "Viento", foto: "waldon.webp" },
+    { nombre: "Athena", equipo: "Zeus", posicion: "Defensa", elemento: "Tierra", foto: "clover.webp" },
+    { nombre: "Saphir", equipo: "Prominence", posicion: "Defensa", elemento: "Tierra", foto: "saphir.webp" },
+    { nombre: "Cardson", equipo: "Kirkwood", posicion: "Portero", elemento: "Tierra", foto: "cardson.webp" },
+    { nombre: "Spring", equipo: "Brain", posicion: "Delantero", elemento: "Viento", foto: "spring.webp" },
+    { nombre: "Autumn", equipo: "Brain", posicion: "Defensa", elemento: "Tierra", foto: "autumn.webp" },
+    { nombre: "Winter", equipo: "Brain", posicion: "Centrocampista", elemento: "Agua", foto: "winter.webp" },
+    { nombre: "Kingston", equipo: "Royal Academy", posicion: "Defensa", elemento: "Bosque", foto: "king.webp" }
 ];
 
 // El jugador misterioso a adivinar hoy es Axel Blaze
@@ -72,7 +107,6 @@ function comprobarJugador(jugador) {
 
     listaIntentos.insertBefore(fila, listaIntentos.firstChild);
 
-    // Activa el recuadro visual de victoria integrado en la página
     if (jugador.nombre === jugadorSecreto.nombre) {
         const cuadroVictoria = document.getElementById("alerta-victoria");
         if (cuadroVictoria) {
