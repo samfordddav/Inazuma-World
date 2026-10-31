@@ -5,12 +5,16 @@ function mostrarModo(modo) {
     } else if(modo === 'crear-equipo') {
         document.getElementById('pantalla-creador-equipo').style.setProperty('display', 'block', 'important');
         cargarJugadoresEnSelectores();
+    } else if(modo === 'adivinar-tecnica') {
+        document.getElementById('pantalla-tecnicas').style.setProperty('display', 'block', 'important');
+        inicializarModoTecnicas();
     }
 }
 
 function mostrarMenu() {
     document.getElementById('pantalla-juego').style.setProperty('display', 'none', 'important');
     document.getElementById('pantalla-creador-equipo').style.setProperty('display', 'none', 'important');
+    document.getElementById('pantalla-tecnicas').style.setProperty('display', 'none', 'important');
     document.getElementById('pantalla-menu').style.setProperty('display', 'flex', 'important');
 }
 
@@ -51,4 +55,65 @@ function exportarAlineacion() {
     }).catch(err => {
         alert("Hubo un problema al copiar, inténtalo de nuevo.");
     });
+}
+
+// --- LÓGICA EXCLUSIVA PARA EL MINIJUEGO DE SUPERTÉCNICAS ---
+const tecnicas = [
+    { nombre: "Tornado de Fuego", tipo: "Tiro", elemento: "Fuego" },
+    { nombre: "Mano Celestial", tipo: "Parada", elemento: "Tierra" },
+    { nombre: "Ventisca Eterna", tipo: "Tiro", elemento: "Viento" },
+    { nombre: "Escudo de Fuerza", tipo: "Parada", elemento: "Fuego" },
+    { nombre: "El Trampolín Relámpago", tipo: "Tiro", elemento: "Viento" },
+    { nombre: "Ciclón Doble", tipo: "Defensa", elemento: "Viento" },
+    { nombre: "Regate Huracán", tipo: "Regate", elemento: "Viento" },
+    { nombre: "Muro de Roca", tipo: "Defensa", elemento: "Tierra" }
+];
+
+// Técnica correcta a adivinar (En este caso configurada como Ventisca Eterna)
+const tecnicaSecreta = tecnicas[2]; 
+
+function inicializarModoTecnicas() {
+    const buscarTec = document.getElementById("buscador-tecnicas");
+    const sugTec = document.getElementById("sugerencias-tecnicas");
+    const listaTec = document.getElementById("lista-intentos-tecnicas");
+
+    if (!buscarTec) return;
+
+    // Limpiar pantallas viejas al entrar
+    buscarTec.value = "";
+    sugTec.innerHTML = "";
+
+    buscarTec.oninput = () => {
+        const texto = buscarTec.value.toLowerCase();
+        sugTec.innerHTML = "";
+        if (!texto) return;
+
+        const filtradas = tecnicas.filter(t => t.nombre.toLowerCase().includes(texto));
+
+        filtradas.forEach(t => {
+            const div = document.createElement("div");
+            div.className = "sugerencia-item";
+            div.innerText = t.nombre;
+            div.onclick = () => {
+                const fila = document.createElement("tr");
+
+                function crearCeldaTec(intento, secreto) {
+                    const td = document.createElement("td");
+                    td.innerText = intento;
+                    td.className = (intento === secreto) ? "verde" : "rojo";
+                    return td;
+                }
+
+                fila.appendChild(crearCeldaTec(t.nombre, tecnicaSecreta.nombre));
+                fila.appendChild(crearCeldaTec(t.tipo, tecnicaSecreta.tipo));
+                fila.appendChild(crearCeldaTec(t.elemento, tecnicaSecreta.elemento));
+
+                listaTec.insertBefore(fila, listaTec.firstChild);
+
+                buscarTec.value = "";
+                sugTec.innerHTML = "";
+            };
+            sugTec.appendChild(div);
+        });
+    };
 }
