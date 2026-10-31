@@ -31,11 +31,10 @@ const jugadores = [
     { nombre: "Paolo Bianchi", equipo: "Orfeo", posicion: "Delantero", elemento: "Viento", foto: "paolo.webp" },
     { nombre: "Hector Helio", equipo: "The Little Giants", posicion: "Portero", elemento: "Tierra", foto: "hector.webp" },
     { nombre: "Edgar Partinus", equipo: "Los Emperadores", posicion: "Delantero", elemento: "Bosque", foto: "edgar.webp" }
-    
 ];
 
 // El jugador misterioso a adivinar hoy es Axel Blaze
-const jugadorSecreto = jugadores[1]; 
+const jugadorSecreto = jugadores; 
 
 const buscador = document.getElementById("buscador");
 const sugerenciasDiv = document.getElementById("sugerencias");
@@ -95,5 +94,30 @@ function comprobarJugador(jugador) {
         if (cuadroVictoria) {
             cuadroVictoria.style.display = "block";
         }
+    }
+}
+
+// LÓGICA DE SELECCIÓN DE DIFICULTAD
+function cambiarDificultad(nivel) {
+    document.getElementById("btn-facil").classList.remove("activo");
+    document.getElementById("btn-medio").classList.remove("activo");
+    document.getElementById("btn-imposible").classList.remove("activo");
+
+    document.getElementById("aviso-modo-bloqueado").style.display = "none";
+
+    if (nivel === 'facil') {
+        document.getElementById("btn-facil").classList.add("activo");
+        document.getElementById("contenedor-buscador-juego").style.display = "block";
+        document.getElementById("instrucciones-juego").innerText = "Introduce un jugador para adivinar el personaje secreto.";
+    } else if (nivel === 'medio') {
+        document.getElementById("btn-medio").classList.add("activo");
+        document.getElementById("contenedor-buscador-juego").style.display = "none";
+        document.getElementById("aviso-modo-bloqueado").style.display = "block";
+        document.getElementById("instrucciones-juego").innerText = "Modo Medio seleccionado.";
+    } else if (nivel === 'imposible') {
+        document.getElementById("btn-imposible").classList.add("activo");
+        document.getElementById("contenedor-buscador-juego").style.display = "none";
+        document.getElementById("aviso-modo-bloqueado").style.display = "block";
+        document.getElementById("instrucciones-juego").innerText = "Modo Imposible seleccionado.";
     }
 }
