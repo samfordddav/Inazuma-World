@@ -14,7 +14,6 @@ const jugadores = [
     { nombre: "Hurley Kane", equipo: "Raimon", posicion: "Defensa", elemento: "Viento", foto: "hurley.webp" },
     { nombre: "Xavier Foster", equipo: "Inazuma Japón", posicion: "Delantero", elemento: "Fuego", foto: "xavier.webp" },
     { nombre: "Jordan Greenway", equipo: "Inazuma Japón", posicion: "Centrocampista", elemento: "Tierra", foto: "jordan.webp" }
-    
 ];
 
 // Jugador secreto (Axel Blaze)
@@ -73,9 +72,11 @@ function comprobarJugador(jugador) {
 
     listaIntentos.insertBefore(fila, listaIntentos.firstChild);
 
+    // Activa el recuadro visual de victoria integrado en la página
     if (jugador.nombre === jugadorSecreto.nombre) {
-        setTimeout(() => {
-            alert("⚽ ¡BRUTAL! ¡Has adivinado el personaje secreto! 🔥🏆");
-        }, 200);
+        const cuadroVictoria = document.getElementById("alerta-victoria");
+        if (cuadroVictoria) {
+            cuadroVictoria.style.display = "block";
+        }
     }
 }
