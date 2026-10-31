@@ -1,12 +1,12 @@
 const jugadores = [
-    { nombre: "Mark Evans", equipo: "Raimon", posicion: "Portero", elemento: "Tierra", foto: "https://inazuma.jp" },
-    { nombre: "Axel Blaze", equipo: "Raimon", posicion: "Delantero", elemento: "Fuego", foto: "https://inazuma.jp" },
-    { nombre: "Jude Sharp", equipo: "Raimon", posicion: "Centrocampista", elemento: "Bosque", foto: "https://inazuma.jp" },
-    { nombre: "Nathan Swift", equipo: "Raimon", posicion: "Defensa", elemento: "Viento", foto: "https://inazuma.jp" },
-    { nombre: "Jack Wallside", equipo: "Raimon", posicion: "Defensa", elemento: "Tierra", foto: "https://inazuma.jp" },
-    { nombre: "Shawn Froste", equipo: "Alpino", posicion: "Delantero", elemento: "Viento", foto: "https://inazuma.jp" },
-    { nombre: "Byron Love", equipo: "Zeus", posicion: "Delantero", elemento: "Bosque", foto: "https://inazuma.jp" },
-    { nombre: "Xene", equipo: "Génesis", posicion: "Delantero", elemento: "Fuego", foto: "https://inazuma.jp" }
+    { nombre: "Mark Evans", equipo: "Raimon", posicion: "Portero", elemento: "Tierra", foto: "" },
+    { nombre: "Axel Blaze", equipo: "Raimon", posicion: "Delantero", elemento: "Fuego", foto: "axel.webp" },
+    { nombre: "Jude Sharp", equipo: "Raimon", posicion: "Centrocampista", elemento: "Bosque", foto: "" },
+    { nombre: "Nathan Swift", equipo: "Raimon", posicion: "Defensa", elemento: "Viento", foto: "" },
+    { nombre: "Jack Wallside", equipo: "Raimon", posicion: "Defensa", elemento: "Tierra", foto: "" },
+    { nombre: "Shawn Froste", equipo: "Alpino", posicion: "Delantero", elemento: "Viento", foto: "" },
+    { nombre: "Byron Love", equipo: "Zeus", posicion: "Delantero", elemento: "Bosque", foto: "" },
+    { nombre: "Xene", equipo: "Génesis", posicion: "Delantero", elemento: "Fuego", foto: "" }
 ];
 
 // Jugador secreto (Axel Blaze)
