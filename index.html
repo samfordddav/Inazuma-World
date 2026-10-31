@@ -45,7 +45,7 @@
             background-color: #111a33;
         }
 
-        #pantalla-juego, #pantalla-creador-equipo { 
+        #pantalla-juego, #pantalla-creador-equipo, #pantalla-tecnicas { 
             display: none !important; 
         }
         
@@ -127,13 +127,15 @@
 
     <h1>Inazuma World</h1>
 
+    <!-- PANTALLA DE INICIO (MENU) -->
     <div id="pantalla-menu">
         <p class="subtitulo">Selecciona un modo de juego</p>
         <button class="btn-modo" onclick="mostrarModo('adivinar-jugador')">⚽ Adivinar Jugador</button>
         <button class="btn-modo" onclick="mostrarModo('crear-equipo')">📋 Creador de Equipos</button>
-        <button class="btn-modo btn-desactivado" disabled>🔒 Próximamente...</button>
+        <button class="btn-modo" onclick="mostrarModo('adivinar-tecnica')">⚡ Adivinar Supertécnica</button>
     </div>
 
+    <!-- MODO 1: ADIVINAR JUGADOR -->
     <div id="pantalla-juego">
         <button class="btn-volver" onclick="mostrarMenu()">⬅️ Volver al menú</button>
         <p>Introduce un jugador para adivinar el personaje secreto.</p>
@@ -156,6 +158,7 @@
         </table>
     </div>
 
+    <!-- MODO 2: CREADOR DE EQUIPO -->
     <div id="pantalla-creador-equipo">
         <button class="btn-volver" onclick="mostrarMenu()">⬅️ Volver al menú</button>
         <h2>Configura tu Equipo Ideal</h2>
@@ -213,6 +216,29 @@
         </div>
 
         <button class="btn-exportar" onclick="exportarAlineacion()">📥 Exportar Alineación</button>
+    </div>
+
+    <!-- MODO 3: ADIVINAR SUPERTÉCNICA (NUEVO) -->
+    <div id="pantalla-tecnicas">
+        <button class="btn-volver" onclick="mostrarMenu()">⬅️ Volver al menú</button>
+        <h2>¿Qué Supertécnica es?</h2>
+        <p>Escribe el nombre de una técnica mítica para intentar adivinar la secreta.</p>
+
+        <div class="buscador-contenedor">
+            <input type="text" id="buscador-tecnicas" placeholder="Ej: Tornado de Fuego, Mano Celestial..." autocomplete="off">
+            <div id="sugerencias-tecnicas" class="sugerencias"></div>
+        </div>
+
+        <table class="tabla-intentos">
+            <thead>
+                <tr>
+                    <th>Supertécnica</th>
+                    <th>Tipo</th>
+                    <th>Elemento</th>
+                </tr>
+            </thead>
+            <tbody id="lista-intentos-tecnicas"></tbody>
+        </table>
     </div>
 
     <script src="script.js"></script>
