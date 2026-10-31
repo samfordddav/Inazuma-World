@@ -16,7 +16,7 @@ const jugadores = [
     { nombre: "Jordan Greenway", equipo: "Inazuma Japón", posicion: "Centrocampista", elemento: "Tierra", foto: "jordan.webp" }
 ];
 
-// Jugador secreto (Axel Blaze)
+// El jugador misterioso a adivinar hoy es Axel Blaze
 const jugadorSecreto = jugadores[1]; 
 
 const buscador = document.getElementById("buscador");
