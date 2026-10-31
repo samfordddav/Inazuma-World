@@ -69,7 +69,7 @@ const tecnicas = [
     { nombre: "Muro de Roca", tipo: "Defensa", elemento: "Tierra" }
 ];
 
-// Técnica correcta a adivinar (En este caso configurada como Ventisca Eterna)
+// Técnica secreta (Ventisca Eterna)
 const tecnicaSecreta = tecnicas[2]; 
 
 function inicializarModoTecnicas() {
@@ -79,7 +79,6 @@ function inicializarModoTecnicas() {
 
     if (!buscarTec) return;
 
-    // Limpiar pantallas viejas al entrar
     buscarTec.value = "";
     sugTec.innerHTML = "";
 
@@ -112,6 +111,13 @@ function inicializarModoTecnicas() {
 
                 buscarTec.value = "";
                 sugTec.innerHTML = "";
+
+                // MENSAJE DE VICTORIA PARA LA SUPERTÉCNICA
+                if (t.nombre === tecnicaSecreta.nombre) {
+                    setTimeout(() => {
+                        alert("⚡ ¡ESPECTACULAR! ¡Has adivinado la supertécnica secreta! 👑💥");
+                    }, 200);
+                }
             };
             sugTec.appendChild(div);
         });
