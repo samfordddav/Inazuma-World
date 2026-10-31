@@ -27,8 +27,7 @@ if (buscador) {
         filtrados.forEach(j => {
             const div = document.createElement("div");
             div.className = "sugerencia-item";
-            // object-fit: cover evita que la foto se deforme en las sugerencias
-            const imgHtml = j.foto ? `<img src="${j.foto}" style="width:25px; height:25px; border-radius:4px; object-fit:cover; vertical-align:middle; margin-right:8px;">` : '';
+            const imgHtml = j.foto ? `<div style="width:25px; height:25px; border-radius:4px; overflow:hidden; display:inline-block; vertical-align:middle; margin-right:8px;"><img src="${j.foto}" style="width:100%; height:100%; object-fit:cover; object-position:center;"></div>` : '';
             div.innerHTML = `${imgHtml}${j.nombre}`;
             div.addEventListener("click", () => {
                 comprobarJugador(j);
@@ -43,9 +42,9 @@ if (buscador) {
 function comprobarJugador(jugador) {
     const fila = document.createElement("tr");
 
+    // Caja contenedora estricta para forzar que el fondo de PC se centre y recorte solo
     const tdJugador = document.createElement("td");
-    // Cambiado a border-radius: 8px (cuadrado con esquinas suaves) y object-fit: cover (no se deforma)
-    const imgHtml = jugador.foto ? `<img src="${jugador.foto}" style="width:45px; height:45px; border-radius:8px; object-fit:cover; display:block; margin:0 auto 4px auto;">` : '';
+    const imgHtml = jugador.foto ? `<div style="width:55px; height:55px; border-radius:8px; overflow:hidden; margin:0 auto 4px auto;"><img src="${jugador.foto}" style="width:100%; height:100%; object-fit:cover; object-position:center;"></div>` : '';
     tdJugador.innerHTML = `${imgHtml}${jugador.nombre}`;
     tdJugador.className = (jugador.nombre === jugadorSecreto.nombre) ? "verde" : "rojo";
     fila.appendChild(tdJugador);
