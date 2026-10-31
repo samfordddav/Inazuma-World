@@ -27,7 +27,8 @@ if (buscador) {
         filtrados.forEach(j => {
             const div = document.createElement("div");
             div.className = "sugerencia-item";
-            const imgHtml = j.foto ? `<img src="${j.foto}" style="width:25px; height:25px; border-radius:50%; vertical-align:middle; margin-right:8px;">` : '';
+            // object-fit: cover evita que la foto se deforme en las sugerencias
+            const imgHtml = j.foto ? `<img src="${j.foto}" style="width:25px; height:25px; border-radius:4px; object-fit:cover; vertical-align:middle; margin-right:8px;">` : '';
             div.innerHTML = `${imgHtml}${j.nombre}`;
             div.addEventListener("click", () => {
                 comprobarJugador(j);
@@ -43,7 +44,8 @@ function comprobarJugador(jugador) {
     const fila = document.createElement("tr");
 
     const tdJugador = document.createElement("td");
-    const imgHtml = jugador.foto ? `<img src="${jugador.foto}" style="width:35px; height:35px; border-radius:50%; display:block; margin:0 auto 4px auto;">` : '';
+    // Cambiado a border-radius: 8px (cuadrado con esquinas suaves) y object-fit: cover (no se deforma)
+    const imgHtml = jugador.foto ? `<img src="${jugador.foto}" style="width:45px; height:45px; border-radius:8px; object-fit:cover; display:block; margin:0 auto 4px auto;">` : '';
     tdJugador.innerHTML = `${imgHtml}${jugador.nombre}`;
     tdJugador.className = (jugador.nombre === jugadorSecreto.nombre) ? "verde" : "rojo";
     fila.appendChild(tdJugador);
